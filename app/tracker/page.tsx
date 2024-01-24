@@ -47,7 +47,7 @@ const Home: React.FC = () => {
 
   // Function to send payload to WebSocket server
   const sendWebSocketPayload = (payload: object, distance: number) => {
-    const websocket = new WebSocket('ws://localhost:8080');
+    const websocket = new WebSocket('wss://localhost:8080');
     websocket.addEventListener('open', () => {
       console.log('WebSocket connection established');
       console.log('Payload sent to WebSocket server:', payload);
