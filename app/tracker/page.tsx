@@ -24,13 +24,13 @@ const Home: React.FC = () => {
 
   // Function to get the current position using the geolocation API
   const getCurrentPosition = (): Promise<GeolocationPosition | null> => {
-    return new Promise(async (resolve) => {
+    return new Promise<GeolocationPosition | null>(async (resolve) => {
       try {
         navigator.geolocation.getCurrentPosition(
           (position) => {
             resolve(position);
           },
-          (error) => {
+          (error: GeolocationPositionError) => {
             console.error('Error getting user location:', error.message);
             resolve(null); // Return null when there's an error
           },
@@ -39,7 +39,7 @@ const Home: React.FC = () => {
           }
         );
       } catch (error) {
-        console.error('Unexpected error:', error.message);
+        console.error('Unexpected error:', (error as Error).message);
         resolve(null); // Return null on unexpected errors
       }
     });
@@ -111,7 +111,7 @@ const Home: React.FC = () => {
       } else {
         console.log('User is outside the specified radius.');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error getting user location:', error.message);
     }
   };
